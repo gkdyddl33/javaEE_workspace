@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import db.DBManager;
 
 public class ImageBoardDAO {
-	DBManager dbManager = new DBManager(); 	// DBManager의 인스턴스도 같이 생성 - DAO의 인스턴스가 생성될 때
+	DBManager dbManager =new DBManager(); 	// DBManager의 인스턴스도 같이 생성 - DAO의 인스턴스가 생성될 때
 	
 	
 	// create(insert)
@@ -52,7 +52,7 @@ public class ImageBoardDAO {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
+			while(rs.next()) {// vo를 이용해 레코드를 담아서 넣기
 				ImageBoard board = new ImageBoard();
 				board.setBoard_id(rs.getInt("board_id"));
 				board.setAuthor(rs.getString("author"));
@@ -76,7 +76,7 @@ public class ImageBoardDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;		
-		ImageBoard board= null;
+		ImageBoard board= null; // 단수이므로..
 		
 		con = dbManager.getConnection();
 		String sql = "select * from imageboard where board_id=?";
@@ -95,52 +95,59 @@ public class ImageBoardDAO {
 				board.setHit(rs.getInt("hit"));
 				board.setFilename(rs.getString("filename"));
 			}
-			
+			// 조회수
+			pstmt = con.prepareStatement("update imageboard set hit=hit+1 where board_id=?");
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			dbManager.release(con, pstmt, rs);
 		}
 		return board;
 	}
 	
 	// update
-	public int update(ImageBoard board) {
+	public int update(ImageBoard board) {// vo
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		con = dbManager.getConnection();		
-		String sql = "update imageboard set author=?,title=?,content=? where board_id=?";
+		String sql = "update imageboard set author=?,title=?,content=?,filename=? where board_id=?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, board.getAuthor());
 			pstmt.setString(2, board.getTitle());
 			pstmt.setString(3, board.getContent());
-			pstmt.setInt(4, board.getBoard_id());
+			pstmt.setString(4, board.getFilename());
+			pstmt.setInt(5, board.getBoard_id());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}  finally {
+			dbManager.release(con, pstmt);
 		}
 		return result;
 	}
-	// dalete
-	public int delete(int board_id) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		con = dbManager.getConnection();		
-		String sql = "delete from imageboard where board_id=?";
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, board_id);
-			result = pstmt.executeUpdate();
+	
+	//delete
+		public int delete(int board_id) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			int result=0;
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			dbManager.release(con,pstmt);
+			String sql="delete from imageboard where board_id=?";
+			con=dbManager.getConnection();
+			try {
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, board_id);
+				result=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				dbManager.release(con, pstmt);
+			}
+			return result;
 		}
-		return result;
-	}
 }

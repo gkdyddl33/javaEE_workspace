@@ -7,3 +7,15 @@ create  table imageboard(
   , hit  int default 0
   , filename varchar(30)
 ) default  character set utf8;
+
+drop table imageboard;
+
+create table  imageboard( 
+ board_id int primary key auto_increment, 
+ author varchar(20),
+ title varchar(20),
+ content text ,
+ filename varchar(50), 
+ regdate  timestamp default now(), 
+ hit int default 0
+) default character set utf8;
