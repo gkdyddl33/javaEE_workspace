@@ -1,5 +1,17 @@
 
-create table  qna( qna_id  int primary key auto_increment   , writer varchar(20)   , title varchar(100)   , content  text    , regdate  timestamp default now()    , hit  int default 0    , team int    , rank  int default 0   , depth int default 0 ) default character  set  utf8;
+create table  qna( 
+qna_id  int primary key auto_increment   
+, writer varchar(20)   
+, title varchar(100)   
+, content  text    
+, regdate  timestamp default now()    
+, hit  int default 0    
+, team int    
+, rank  int default 0   
+, depth int default 0 
+) default character  set  utf8;
+
+
 1. 기존에 내가 본 글 보다 rank 가 큰 글의 rank는 모두 1씩 증가하시오.(공간확보)
 
 	update qna rank = rank + 1 where rank > 내가본글 rank and
@@ -8,3 +20,12 @@ create table  qna( qna_id  int primary key auto_increment   , writer varchar(2
 2. 빈 공간을 내가 차지!! = 답변
 
 	insert qna(~team,rank,depth) values(내본team,내본rank+1,내본depth+1);
+
+----------------------------------------
+
+맨 밑에 불청객이 중간 사이에 껴야 한다면..?
+
+ 1. qna 테이블의 rank는 모두  업데이트되라.. 단 내가 본글 team 내에서 내가 본글의 rank보다
+ 값이 컸던 애들만...
+
+ 2. insert into qna(~team,rank,depth) values(내본team,내본rank+1,내본depth+1)
