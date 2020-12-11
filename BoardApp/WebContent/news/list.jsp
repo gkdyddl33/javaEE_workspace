@@ -38,6 +38,9 @@ a{text-decoration:none;}
 	color:blue;
 	font-weight:bold;
 }
+.inactive{
+	color:#cccccc;
+}
 </style>
 <script>
 function showColor(obj){
@@ -56,14 +59,25 @@ function hideColor(obj){
 			<td width="70%">제목</td>
 			<td width="10%">작성자</td>
 			<td width="10%">등록일</td>
-			<td width="5%">조회수</td>
+			<td width= "5%">조회수</td>
 		</tr>
 		<%for(int i=1;i<=pageSize;i++){%>
 		<%if(num<1)break; %>
 		<%News news=list.get(curPos++); %>
 		<tr onMouseOver="showColor(this)" onMouseout="hideColor(this)">
 			<td><%=num-- %></td>
-			<td><a href="detail.jsp?news_id=<%=news.getNews_id()%>"><%=news.getTitle() %></a></td>
+			<td>
+<!-- --------삭제된 게시물이라면 글씨만 출력--------- -->
+			<%if(news.getWriter().length()<1){// 작성자의 문자열 길이가 0 이라면..없는것 %>
+				<span class="inactive"><%=news.getTitle() %></span>
+			<%}else{ %>
+				<a href="detail.jsp?news_id=<%=news.getNews_id()%>"><%=news.getTitle() %>
+				<%if(news.getCnt()>0){ %>
+					[<%=news.getCnt()%>]
+				<%} %>
+			<%} %>
+				</a>
+			</td>
 			<td><%=news.getWriter() %></td>
 			<td><%=news.getRegdate().substring(0,10) %></td>
 			<td><%=news.getHit() %></td>
