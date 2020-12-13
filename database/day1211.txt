@@ -1,0 +1,114 @@
+SQL> show user;
+USER is "SYSTEM"
+SQL> create tablespace lastspace
+  2  datafile 'C:\oraclexe\app\oracle\oradata\XE\lastspace.dbf'
+  3  size 10M
+  4  ;
+
+Tablespace created.
+
+SQL> create user lastuser
+  2  identified by lastuser
+  3  default tablespace lastspace
+  4  quota unlimited on lastspace;
+
+User created.
+
+SQL> grant create session, create table, create sequence to lastuser;
+
+Grant succeeded.
+
+SQL> conn lastuser/lastuser;
+Connected.
+SQL> create table board(
+  2   board_id number primary key
+  3   , title varchar(100)
+  4   , writer varchar(20)
+  5   , content clob
+  6   , regdate date default sysdate
+  7   , hit number default 0
+  8   , filename varchar(50)
+  9  );
+
+Table created.
+
+SQL> create sequence seq_board
+  2  increment by 1
+  3  start with 1;
+
+Sequence created.
+
+SQL> show user
+USER is "LASTUSER"
+SQL> create table comments(
+  2   comments_id number primary key
+  3   , msg varchar(1000)
+  4   , author varchar(20)
+  5   , cdate date default sysdate
+  6  );
+
+Table created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table comments(
+  2   comments_id number primary key
+  3   , msg varchar(1000)
+  4   , author varchar(20)
+  5   , cdate date default sysdate
+  6* )
+SQL> drop table comments;
+
+Table dropped.
+
+SQL> create table comments(
+  2   comments_id number primary key
+  3   , board_id number
+  4   , msg varchar(1000)
+  5   , author varchar(20)
+  6   , cdate date default sysdate
+  7   , constraint fk_boardcomments foreign key(board_id) references board(board_id)
+  8  );
+
+Table created.
+
+SQL> create sequence seq_comments
+  2  increment by 1
+  3  start with 1;
+
+Sequence created.
+
+SQL> desc board;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BOARD_ID                                  NOT NULL NUMBER
+ TITLE                                              VARCHAR2(100)
+ WRITER                                             VARCHAR2(20)
+ CONTENT                                            CLOB
+ REGDATE                                            DATE
+ HIT                                                NUMBER
+ FILENAME                                           VARCHAR2(50)
+
+SQL> insert into board(board_id, title) values(seq_board.nextval,'test');
+
+1 row created.
+
+SQL> show user;
+USER is "LASTUSER"
+SQL> commit;
+
+Commit complete.
+
+SQL> desc board;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BOARD_ID                                  NOT NULL NUMBER
+ TITLE                                              VARCHAR2(100)
+ WRITER                                             VARCHAR2(20)
+ CONTENT                                            CLOB
+ REGDATE                                            DATE
+ HIT                                                NUMBER
+ FILENAME                                           VARCHAR2(50)
+
+SQL> spool off

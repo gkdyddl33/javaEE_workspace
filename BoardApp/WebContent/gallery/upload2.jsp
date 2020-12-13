@@ -1,6 +1,6 @@
 <%@page import="java.io.IOException"%>
 <%@page import="java.io.File"%>
-<%@page import="common.FileManager"%>
+<%@page import="common.db.FileManager"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%
