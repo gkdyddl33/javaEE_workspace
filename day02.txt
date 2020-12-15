@@ -1,0 +1,55 @@
+
+
+JSP 의 문서의 구성요소
+
+1. 지시(directive) 영역 - MimeType(파일종류)
+		     인코딩, import.. 지시어
+
+2. 선언부 - 멤버 영역(멤버변수, 멤버메서드 선언 영역) <%!%>
+
+3. 스크립틀릿 영역 - 로직을 작성하는 영역(<%%>)
+
+4. 표현식 - our.print() 단축된 표현
+
+--------------------------------------------
+
+내장객체(Built In - Object)
+- 개발자가 아닌 시스템에 의해 이미 메모리에 인스턴스가 생성되어있으며,
+ 그 레퍼런스 변수명까지 정해져 있는, 시스템이 제공하는 객체
+
+request, response, out
+Create Read Update Delete
+insert select update delete DML+select
+
+--------------------------------------------
+
+notice 폴더 ----> 시점은? 톰캣서버에 설정했을 때 = 배포(Deployment) 할 때
+		       웹 사이트가 된다.
+		       大 형 웹 어플리케이션 
+
+공지게시판 만들기 Mysql
+
+pk
+제목
+작성자
+내용
+조회수
+등록일
+
+create table notice(
+notice_id int primary key auto_increment
+,title varchar(100)
+,author varchar(20)
+,content text
+,hit int default 0
+,regdate timestamp default now()
+)default character set utf8;
+
+--------------------------------------------------
+
+Sun 사의 javaEE스팩
+
+웹사이트 / WEB-INF/lib	: jar만 올 수 있다.
+	/ WEB-INF/classes	: class 날개로 올 수있다.
+
+	javac -d D:\workspace\jsp_workspace\notice\WEB-INF\classes/ Dog.java
