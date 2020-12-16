@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webapp1216.mybatis.config.config">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="JNDI">
+        <property name="data_source" value="${driver}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+<!--  
+  <mappers>
+    <mapper resource="mybatis/example/BlogMapper.xml"/>
+  </mappers>
+-->
+  
+</configuration>
+</mapper>

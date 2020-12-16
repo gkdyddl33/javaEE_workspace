@@ -1,0 +1,89 @@
+﻿ 서블릿(Servlet) ? 
+ - 정의 : 오직 웹서버에서만 해석 및 실행될 수 있는  javaEE기반의 클래스
+
+ - 생명주기 : init(), service(), destory()
+     init() : 생성자 호출 후, 서블릿의 초기화 작업 때문에 톰켓에 의해 호출 
+     service() : 동시에 많은 클라이언트의 요청을 처리하는 메서드이고, 
+                  동시에 호출되려면, 쓰레드에 의해 호출됨 
+     destory() : 서블릿 소멸시점에 호출
+                  주로 서블릿이 보유했던 자원 등을 반납하는 용도에 사용...
+
+ - 서블릿의 계보 
+    HttpServlet(추상클래스) ->  GenericServlet(추상클래스)  ->  Servlet(인터페이스) 
+  
+Deployment Descrioptor(배포설명자,서술자)
+ 한번 만들어진 웹어플리케이션은 서버의 종류에 상관없이 
+javaEE 스팩을 준수한 서버라면 어디서건 실행된다..
+이때 해당 어플리케이션의 배포정보를 담고 있는 설정파일을 dd
+
+jar ( Java Archive ) - 항아리(본의아니게) 
+war(webapplication  Archive ) 
+
+서블릿 이용한 게시판
+
+최종목표 MVC 패턴으로 어플리케이션을 개발하는 거임!!
+
+
+	M
+
+	V
+
+	C 로직인 Model과 다지안인 view을 분리시키기 위한 용도
+     	   웹이건, 응용프로그램이건 모든 컨트롤러 5대역할
+	   1.요청을 받는다..
+	   2.요청을 분석한다...
+	   3. 알맞는 로직객체에게 일을 시킨다(지가 직접 안한다)
+	   4. 일시킨후(3단계) 결과가 있다면 결과를 보관한다.
+	   5. 디자인에 그 결과를 반영한다.
+
+---------------------------------------------------
+ - spring 배운다  vs spring 만들거임
+
+
+ MS  설치에 부담이 개발자에게 없고, 모든걸 MS 패키지에서 알아서 해줌...install
+
+자바분야는 왜  설치할게 많은가?? 개발자가 스스로..?
+ - 오픈소스 진영이다~~
+   소프트웨어를 개발한 업체가 한군데가...
+  하드웨어   os
+  자바언어 - 서버, 라이브러리...(개발벤더가 너무많다..)
+ 덕지 덕지...
+
+
+1.커넥션 풀링 (jndi이용하자) 
+   1) server.xml 에서 resource 태그 등록 
+	<Resource name="jdbc/mysql"
+		auth="Container"
+		type="javax.sql.DataSource"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost/db1216"
+		username="root"
+		password="1234"
+		maxActive="20"
+		maxIdle="10"
+		maxWait="3000"/>  
+   2) context.xml에서 등록
+	<ResourceLink type="javax.sql.DataSource"
+                      name="jdbc/mysql"
+                      global="jdbc/mysql" />
+
+   3) web.xml에서 등록 
+	<resource-ref>
+		<res-ref-name>jdbc/mysql</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+2.mybatis 프레임웍 사용하기 
+
+
+
+
+
+
+
+
+
+
+
+
