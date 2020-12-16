@@ -7,7 +7,7 @@
 	
 	// 만일 login.jsp admin Vo가 null이면? 인증을 거치지 않거나, 세션이 만료된 상황이므로,
 	// 현재 페이지에 대한 접근 자체를 막아야 한다..
-	if(admin != null){		
+	if(admin == null){		
 	
 %>
 <!DOCTYPE html>

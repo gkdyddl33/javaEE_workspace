@@ -3,8 +3,8 @@
 <mapper namespace="Board">
 
 	<insert id="insert" parameterType="Board">
-		insert into board(board_id,title,writer,content,filename) 
-		values(seq_board.nextval,#{title},#{writer},#{content},#{filename})
+		insert into board(board_id,title,writer,content,filename) values(
+		seq_board.nextval,#{title},#{writer},#{content},#{filename})
 	</insert>
 	
 	<select id="selectAll" resultType="Board">
@@ -12,7 +12,7 @@
 	</select>
 	
 	<select id="select" parameterType="int" resultType="Board">
-		select * from board where board_id=#{board_id}	
+		select * from board where board_id=#{board_id}
 	</select>
 	
 	<update id="update" parameterType="Board">
