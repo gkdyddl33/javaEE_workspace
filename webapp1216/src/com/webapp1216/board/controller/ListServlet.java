@@ -26,7 +26,7 @@ public class ListServlet extends HttpServlet{
 		// 세션? 클라이언트가 브라우저 프로세스를 닫지 않거나, 일정 시작 내에 재접속할 때 서버측의 
 		// 메모리에 담겨진 정보를 사용할 수 있는 기술..(새로운 접속인 경우 세션객체를 새로 생성되고,
 		// 세션아이디가 새롭게 발급됨..)
-		// jsp에서의 session 내장객체는 자료형이 HttSession 이다!!
+		// jsp에서의 session 내장객체는 자료형이 HttpSession 이다!!
 		HttpSession session = request.getSession();		// 이 요청과 관련한 세션을 얻는다.
 		session.setAttribute("noticeList", list);
 		
