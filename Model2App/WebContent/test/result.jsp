@@ -9,7 +9,7 @@
 <script>
 </script>
 </head>
-<body>
-
+<body bgcolor="yellow">
+<%=request.getAttribute("result") %>
 </body>
 </html>
