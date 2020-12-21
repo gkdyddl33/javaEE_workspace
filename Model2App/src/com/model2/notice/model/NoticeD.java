@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.model2.domain.Notice;
 import com.model2.mybatis.config.Mybatis;
-import com.model2.notice.domain.Notice;
 
 public class NoticeD {
 	Mybatis mybatis = Mybatis.getInstance();
