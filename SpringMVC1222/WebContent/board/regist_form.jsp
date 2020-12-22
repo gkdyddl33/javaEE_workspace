@@ -51,7 +51,7 @@ input[type=button]:hover {
 	// 글등록 요청
 	function regist(){
 		$("form").attr({
-			action:"/board/regist.do",
+			action:"/board/regist",
 			method:"post"
 		});
 		$("form").submit();
