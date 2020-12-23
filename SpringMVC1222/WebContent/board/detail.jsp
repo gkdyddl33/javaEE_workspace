@@ -2,8 +2,8 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%
 	//정말로 포워딩이 요청을 유지햇는지 테스트해보자!!
-	Board board =(Board)request.getAttribute("board");
-	out.print("요청객체에 담겨진 board는 "+ board);
+	Board board =(Board)request.getAttribute("board"); 
+	out.print("요청객체에 담겨진 board는 "+ board); 
 		
 %>
 <!DOCTYPE html>
@@ -58,15 +58,30 @@ $(function(){
 	$($("input[type='button']")[0]).click(function(){// 글 수정
 		edit();	// 동기방식으로 요청하겠다
 	});
+	$($("input[type='button']")[1]).click(function(){// 글 삭제
+		del();	
+	});
 	getCommentList(); //댓글 목록 비동기로 가져오기!!!
 });
 //글등록 요청
 function edit(){
-	$("form").attr({
-		action:"/board/edit",
-		method:"post"
-	});		
-	$("form").submit();
+	if(confirm("수정하시겠습니까?")){
+		$("form").attr({
+			action:"/board/edit", 
+			method:"post"
+		});		
+		$("form").submit();		
+	}
+}
+
+function del(){
+	if(confirm("삭제하시겠습니까?")){
+		$("form").attr({
+			action:"/board/delete", 
+			method:"post"
+		});		
+		$("form").submit();
+	}
 }
 //댓글 목록 가져오기 
 function getCommentList(){
@@ -130,7 +145,7 @@ function registComment(){
 
 <div class="container">
   <form>
-    <input type="hidden" name="board_id" value="<%=board.getBoard_id()%>">
+    <input type="hidden" name="board_id" value="<%=board.getBoard_id()%>"> 
     <input type="text" name="title" value="<%=board.getTitle()%>">
     <input type="text" name="writer" value="<%=board.getWriter()%>">
     <textarea id="content" name="content" style="height:200px"><%=board.getContent() %></textarea>

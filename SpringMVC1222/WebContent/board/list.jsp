@@ -48,8 +48,8 @@ tr:nth-child(even) {
       <%if(num<1)break; %>
       <%Board board = list.get(curPos++);%>
       <tr>
-         <td><%=num--%></td>
-         <td><a href = "/board/detail.do?board_id=<%=board.getBoard_id()%>"><%=board.getTitle()%></a>[<%=board.getCnt() %>]</td>
+         <td><%=num--%></td> 
+         <td><a href = "/board/detail?board_id=<%=board.getBoard_id()%>"><%=board.getTitle()%></a>[<%=board.getCnt() %>]</td>
          <td><%=board.getWriter() %></td>
          <td><%=board.getRegdate() %></td>
          <td><%=board.getHit() %></td>

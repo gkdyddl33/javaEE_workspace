@@ -32,7 +32,7 @@
      
     <!--뷰 매핑  -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"><!-- 해결해드릴게요 : 해결사, 접두어/점미어로 구성된 뷰 구성 -->
-        <property name="prefix"  value="/"/>
+        <property name="prefix"  value="/"/> 
         <property name="suffix"  value=".jsp"/><!--/(접두어) board/list .jsp(접미어) -->
     </bean>
     

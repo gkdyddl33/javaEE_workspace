@@ -38,7 +38,7 @@ public class EditController implements Controller{
 	}
 
 	public boolean isForward() {
-		return false;
+		return true;
 	}
 	
 }
